@@ -1,1 +1,3 @@
 # mittzchat
+
+A chat room
