@@ -10,6 +10,9 @@
     "express": "4.13.4",
     "socket.io": "^1.7.3"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "node server/server.js"
   }
