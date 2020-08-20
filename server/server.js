@@ -1,13 +1,10 @@
-// Author: GW19 <imgw19@gmail.com>
-// Based on Socket.io
-
 // Setup basic express server
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3232;
-var botname = '⚙️ OOF Bot'
+var botname = '⚙️ !v! ittz'
 
 server.listen(port, function () {
   console.log('Server listening at port %d', port);
@@ -53,6 +50,14 @@ io.on('connection', function (socket) {
       message: socket.username
     });
   });
+  
+      socket.on('sbot', function (data) {
+    // we tell the client to execute 'new message'
+    socket.broadcast.to(curRoomName).emit('new message', {
+      username: botname,
+      message: data
+    });
+  });
   //games
     //coinflip
     socket.on('cf-heads', function (data) {
@@ -68,24 +73,7 @@ io.on('connection', function (socket) {
       username: botname,
       message: socket.username+' flipped a coin and got Tails'
     });
-  });
-  
-      socket.on('j-good', function (data) {
-    // we tell the client to execute 'new message'
-    socket.broadcast.to(curRoomName).emit('new message', {
-      username: 'Jesus',
-      message: '*has left the chat*'
-    });
-  });
-   socket.on('j-salt', function (data) {
-    // we tell the client to execute 'new message'
-    socket.broadcast.to(curRoomName).emit('new message', {
-      username: 'Jesus',
-      message: 'Ok Boomer, Ok Boomer, Ok Boomer, Ok Boomer, Ok Boomer, Ok Boomer, Ok Boomer, Ok Boomer'
-    });
-  });
-  
-  
+  });  
   
   //pet 
   socket.on('cat message', function (data) {

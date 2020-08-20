@@ -1,8 +1,30 @@
 // Created by Orago>
 // Based on Socket.io
-var botname = '⚙️ OOF Bot'
-var cmdlist = '/join, /help, /refresh, /reload, /info, /time /fun, '
-var ver = '1.04'
+var botname = '⚙️ !v! ittz' //The username of the bot
+var cmdlist = '/join, /help, /refresh, /reload, /info, /time /fun, '//simple list of the commands that are easier to reach
+var ver = '1.04'//The version of the command used
+var prefix = '$' //The symbol used to call a command
+var pname = "Mittz Chat"
+
+function passWord() {
+var testV = 1;
+var pass1 = prompt('Please Enter Your Password',' ');//Password Request Text
+while (testV < 3) {
+if (!pass1)
+history.go(-1);
+if (pass1.toLowerCase() == "BetaCatto") {
+alert('You Got it Right!');//Password Accepted Text
+window.open('/');
+break;
+}
+testV+=1;
+var pass1 =
+prompt('Access Denied - Password Incorrect, Please Try Again.','Password'); //Password Denied Text
+}
+if (pass1.toLowerCase()!="password" & testV ==3)
+history.go(-1);
+return " ";
+}
 
 $(function() {
   var FADE_TIME = 150; // ms
@@ -69,7 +91,7 @@ var time = new Date();
       if (data.numUsers === 1) {
         message = 'You are alone now!';
       } else {
-        message = 'There are ' + data.numUsers + ' users in Mittz Chat';
+        message = 'There are ' + data.numUsers + ' users in ' + pname;
       }
     }
     log(message);
@@ -102,7 +124,7 @@ var time = new Date();
     // if there is a non-empty message and a socket connection
     if (connected) {
       $inputMessage.val('');
-      if (message.charAt(0) !== '/') {
+      if (message.charAt(0) !== prefix) {
         addChatMessage({
           username: username,
           message: message
@@ -205,9 +227,22 @@ var time = new Date();
         break;
         
       case 'beta':// Command /refresh = reload room list.
-        betalink
+        passWord()
         break;
         
+      case 'my':// Command /refresh = reload room list.
+        words.shift();
+        var jchat = words.join(' ');
+        if (jchat == "username"){
+          alert(username);
+        }
+        break;
+      case 'set-username':// Command /refresh = reload room list.
+        words.shift();
+        var jchat = words.join(' ');
+          
+          alert(username);
+        break; 
       case 'info':// Command /info = Server info
         message = 'This server is running V'+ver;
         log(message);
@@ -238,6 +273,7 @@ var time = new Date();
           log('Please select a text that you would like to slap, ' +
               'Example /slap cat', {})}
         break;
+        
       case 'bored': //im bored
       addChatMessage({
           username: botname,
@@ -261,6 +297,21 @@ var time = new Date();
               'Example /slap cat', {})}
         break;
 
+      case 'say':// Slaps the text given
+      words.shift();
+      var jchat = words.join(' ');
+        var cat='kitty'
+      if (cat='kitty') {
+      addChatMessage({
+          username: botname,
+          message: jchat
+        });
+        socket.emit('sbot',jchat);}
+        else{
+          log('Please use the command correctly, also must have less than 10 letters, ' +
+              'Example /slap cat', {})}
+        break;
+        
       case 'ree':// Slaps the text given
           var audio = new Audio('https://cdn.glitch.com/b792ab51-deee-4647-a7bb-4717144ab5da%2Freeeeee-sound-effect-2oGr22XU.mp3?v=1574807326622');
           audio.play();
@@ -271,19 +322,7 @@ var time = new Date();
         socket.emit('new message','REE');
 
         break;
-        
-      case 'ob': //okaboomer
-
-                    addChatMessage({
-          username: username,
-          message: 'Ok Boomer'
-        });
-          socket.emit('new message','Ok Boomer');          socket.emit('j-good');
-          addChatMessage({
-          username: 'Jesus',
-          message: '*has left the chat*'
-          });
-        break;
+      
         
         case 'cf': //coinflip
           var prob1 = Math.floor(Math.random() * 2) +1;
@@ -524,10 +563,15 @@ var time = new Date();
   socket.on('login', function (data) {
     connected = true;
     // Display the welcome message
-    var message = '— Welcome to Mittz Chat —';
+    var message = '— Welcome to ' + pname+ ' —';
+    var prefhelp = 'The bot prefix is currently ' + prefix;
+    log(prefhelp, {
+      prepend: true
+    });
     log(message, {
       prepend: true
     });
+    
     addParticipantsMessage(data);
   });
 
@@ -628,4 +672,4 @@ var time = new Date();
   $btnTips.on( "click", function() {
     $('#effect-tips').toggle('blind');
   });
-});e
+});
